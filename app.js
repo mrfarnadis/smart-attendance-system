@@ -41,6 +41,9 @@ import {
 const firebaseConfig = {
   apiKey: "AIzaSyBtYTUHRoMZ30TlJkmi1XuC7QMLoacunvE",
   authDomain: "attendance---management-system.firebaseapp.com",
+
+  databaseURL: "https://attendance---management-system-default-rtdb.firebaseio.com/",
+
   projectId: "attendance---management-system",
   storageBucket: "attendance---management-system.firebasestorage.app",
   messagingSenderId: "626663323135",
@@ -175,8 +178,7 @@ loginBtn.addEventListener("click", async () => {
         console.error(error);
 
         loginMessage.textContent =
-            "Login failed. Check email and password.";
-
+    `Login failed: ${error.code} - ${error.message}`;
     }
 
 });

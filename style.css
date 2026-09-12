@@ -1,0 +1,925 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+
+    --green: #16a34a;
+    --green-light: #dcfce7;
+
+    --red: #dc2626;
+    --red-light: #fee2e2;
+
+    --orange: #ea580c;
+    --purple: #7c3aed;
+
+    --background: #f1f5f9;
+    --card: #ffffff;
+
+    --text: #0f172a;
+    --muted: #64748b;
+
+    --border: #e2e8f0;
+
+    --shadow:
+        0 8px 30px rgba(15, 23, 42, 0.08);
+}
+
+body {
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eff6ff,
+            #f8fafc,
+            #eef2ff
+        );
+
+    color: var(--text);
+
+    min-height: 100vh;
+}
+
+
+/* ================================
+   COMMON
+================================ */
+
+.hidden {
+    display: none !important;
+}
+
+.container {
+    width: min(1400px, 94%);
+    margin: auto;
+}
+
+.card {
+    background: var(--card);
+
+    border-radius: 20px;
+
+    padding: 24px;
+
+    margin: 22px 0;
+
+    box-shadow: var(--shadow);
+
+    border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+h2 {
+    font-size: 22px;
+    margin-bottom: 5px;
+}
+
+p {
+    color: var(--muted);
+}
+
+
+/* ================================
+   LOGIN
+================================ */
+
+.login-screen {
+    min-height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 20px;
+
+    background:
+        radial-gradient(
+            circle at top right,
+            #60a5fa,
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #172554,
+            #1e3a8a,
+            #312e81
+        );
+}
+
+.login-card {
+    width: 100%;
+    max-width: 420px;
+
+    background: white;
+
+    padding: 35px;
+
+    border-radius: 25px;
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.25);
+
+    text-align: center;
+}
+
+.login-logo {
+    width: 75px;
+    height: 75px;
+
+    margin: auto auto 18px;
+
+    border-radius: 22px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 35px;
+
+    background: #dbeafe;
+}
+
+.login-card h1 {
+    margin-bottom: 5px;
+}
+
+.login-subtitle {
+    margin-bottom: 25px;
+}
+
+
+/* ================================
+   HEADER
+================================ */
+
+.top-header {
+    position: sticky;
+
+    top: 0;
+
+    z-index: 100;
+
+    background:
+        linear-gradient(
+            135deg,
+            #1e3a8a,
+            #2563eb,
+            #4f46e5
+        );
+
+    color: white;
+
+    padding: 16px 4%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    box-shadow:
+        0 5px 20px rgba(30, 64, 175, 0.3);
+}
+
+.top-header h1 {
+    font-size: 21px;
+}
+
+.top-header span {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+
+/* ================================
+   SECTION TITLE
+================================ */
+
+.section-title {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 22px;
+}
+
+
+/* ================================
+   FORMS
+================================ */
+
+.form-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 15px;
+}
+
+.input-group {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+}
+
+label {
+    font-size: 13px;
+
+    font-weight: 700;
+
+    color: #475569;
+}
+
+input,
+select {
+    width: 100%;
+
+    border: 1px solid var(--border);
+
+    border-radius: 12px;
+
+    padding: 13px 14px;
+
+    font-size: 15px;
+
+    outline: none;
+
+    background: #f8fafc;
+
+    transition: 0.2s;
+}
+
+input:focus,
+select:focus {
+    border-color: var(--primary);
+
+    background: white;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+
+/* ================================
+   BUTTONS
+================================ */
+
+button {
+    border: none;
+
+    cursor: pointer;
+
+    font-weight: 700;
+
+    border-radius: 12px;
+
+    transition:
+        transform 0.15s,
+        opacity 0.15s,
+        background 0.15s;
+}
+
+button:active {
+    transform: scale(0.97);
+}
+
+.primary-btn {
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #4f46e5
+        );
+
+    color: white;
+
+    padding: 13px 18px;
+}
+
+.primary-btn:hover {
+    opacity: 0.92;
+}
+
+.secondary-btn {
+    background: #e2e8f0;
+
+    color: #0f172a;
+
+    padding: 13px 18px;
+}
+
+.danger-btn {
+    background: var(--red);
+
+    color: white;
+
+    padding: 13px 18px;
+}
+
+.logout-btn {
+    background: rgba(255,255,255,0.15);
+
+    border: 1px solid rgba(255,255,255,0.3);
+
+    color: white;
+
+    padding: 10px 15px;
+}
+
+.small-btn {
+    padding: 10px 13px;
+
+    background: #e2e8f0;
+
+    color: #0f172a;
+}
+
+.green-btn {
+    background: var(--green-light);
+
+    color: #166534;
+}
+
+.red-btn {
+    background: var(--red-light);
+
+    color: #991b1b;
+}
+
+.full-btn {
+    width: 100%;
+}
+
+
+/* ================================
+   STATS
+================================ */
+
+.stats-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 12px;
+
+    margin: 22px 0;
+}
+
+.stat-card {
+    background:
+        linear-gradient(
+            135deg,
+            #eff6ff,
+            #f8fafc
+        );
+
+    border: 1px solid #dbeafe;
+
+    padding: 18px;
+
+    border-radius: 16px;
+}
+
+.stat-card span {
+    display: block;
+
+    color: var(--muted);
+
+    font-size: 13px;
+
+    margin-bottom: 7px;
+}
+
+.stat-card strong {
+    font-size: 27px;
+}
+
+.present-stat {
+    background: var(--green-light);
+
+    border-color: #bbf7d0;
+}
+
+.absent-stat {
+    background: var(--red-light);
+
+    border-color: #fecaca;
+}
+
+
+/* ================================
+   TOOLBARS
+================================ */
+
+.attendance-toolbar,
+.student-toolbar,
+.history-controls,
+.report-controls,
+.backup-buttons {
+    display: flex;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+
+    margin: 15px 0;
+}
+
+.attendance-toolbar input {
+    flex: 1;
+    min-width: 220px;
+}
+
+
+/* ================================
+   ATTENDANCE LIST
+================================ */
+
+.attendance-list {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 9px;
+
+    max-height: 650px;
+
+    overflow-y: auto;
+}
+
+.attendance-row {
+    display: grid;
+
+    grid-template-columns:
+        70px
+        minmax(150px, 1fr)
+        110px
+        100px
+        100px;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 12px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+
+    background: #fff;
+
+    transition: 0.2s;
+}
+
+.attendance-row:hover {
+    background: #f8fafc;
+}
+
+.roll {
+    font-weight: 800;
+
+    color: var(--primary);
+}
+
+.student-name {
+    font-weight: 700;
+}
+
+.attendance-status {
+    font-size: 13px;
+
+    color: var(--muted);
+}
+
+.attendance-btn {
+    padding: 11px;
+
+    font-size: 14px;
+}
+
+.present-btn {
+    background: #dcfce7;
+
+    color: #166534;
+}
+
+.present-btn.active {
+    background: #16a34a;
+
+    color: white;
+}
+
+.absent-btn {
+    background: #fee2e2;
+
+    color: #991b1b;
+}
+
+.absent-btn.active {
+    background: #dc2626;
+
+    color: white;
+}
+
+.save-area {
+    margin-top: 20px;
+
+    display: flex;
+
+    justify-content: flex-end;
+}
+
+
+/* ================================
+   STUDENT ADD
+================================ */
+
+.add-student-box {
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        2fr
+        1fr
+        auto;
+
+    gap: 10px;
+
+    margin-bottom: 18px;
+}
+
+
+/* ================================
+   TABLE
+================================ */
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    min-width: 750px;
+}
+
+th {
+    text-align: left;
+
+    background: #f1f5f9;
+
+    color: #475569;
+
+    font-size: 13px;
+
+    padding: 13px;
+}
+
+td {
+    padding: 13px;
+
+    border-bottom: 1px solid var(--border);
+
+    font-size: 14px;
+}
+
+.percentage-good {
+    color: #15803d;
+
+    font-weight: 800;
+}
+
+.percentage-bad {
+    color: #dc2626;
+
+    font-weight: 800;
+}
+
+.delete-btn {
+    background: #fee2e2;
+
+    color: #b91c1c;
+
+    padding: 8px 10px;
+}
+
+
+/* ================================
+   DEFAULTERS
+================================ */
+
+.defaulter-list {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fill, minmax(270px, 1fr));
+
+    gap: 13px;
+}
+
+.defaulter-card {
+    border-left:
+        5px solid #dc2626;
+
+    background: #fff7f7;
+
+    padding: 16px;
+
+    border-radius: 12px;
+}
+
+.defaulter-card h3 {
+    margin-bottom: 7px;
+}
+
+.defaulter-card p {
+    margin: 4px 0;
+}
+
+.required-lectures {
+    color: #b91c1c;
+
+    font-weight: 800;
+}
+
+
+/* ================================
+   AUDIT
+================================ */
+
+.audit-item {
+    padding: 14px;
+
+    border-bottom: 1px solid var(--border);
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 15px;
+}
+
+.audit-item:last-child {
+    border-bottom: none;
+}
+
+.audit-action {
+    font-weight: 800;
+
+    color: var(--primary);
+}
+
+
+/* ================================
+   SYNC
+================================ */
+
+.sync-status {
+    font-size: 13px;
+
+    color: #15803d;
+
+    background: #dcfce7;
+
+    padding: 7px 10px;
+
+    border-radius: 20px;
+}
+
+
+/* ================================
+   EMPTY
+================================ */
+
+.empty-state {
+    padding: 35px;
+
+    text-align: center;
+
+    color: var(--muted);
+
+    background: #f8fafc;
+
+    border-radius: 14px;
+}
+
+
+/* ================================
+   MODAL
+================================ */
+
+.modal {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 500;
+
+    background:
+        rgba(15, 23, 42, 0.6);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+}
+
+.modal-card {
+    width: 100%;
+
+    max-width: 650px;
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    background: white;
+
+    border-radius: 20px;
+
+    padding: 25px;
+
+    position: relative;
+}
+
+.close-btn {
+    position: absolute;
+
+    right: 15px;
+
+    top: 12px;
+
+    background: #f1f5f9;
+
+    width: 35px;
+
+    height: 35px;
+
+    font-size: 22px;
+}
+
+.edit-row {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    padding: 12px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+.modal-buttons {
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    margin-top: 20px;
+}
+
+
+/* ================================
+   FOOTER
+================================ */
+
+footer {
+    text-align: center;
+
+    padding: 30px;
+
+    color: var(--muted);
+
+    font-size: 13px;
+}
+
+
+/* ================================
+   MOBILE
+================================ */
+
+@media (max-width: 800px) {
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .add-student-box {
+        grid-template-columns: 1fr;
+    }
+
+    .attendance-row {
+        grid-template-columns:
+            55px
+            1fr
+            85px
+            85px;
+    }
+
+    .attendance-status {
+        display: none;
+    }
+
+    .section-title {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .save-area {
+        position: sticky;
+
+        bottom: 10px;
+
+        z-index: 20;
+    }
+
+    .save-area button {
+        width: 100%;
+    }
+
+    .card {
+        padding: 17px;
+
+        border-radius: 16px;
+    }
+
+    .top-header {
+        padding: 13px 4%;
+    }
+
+    .top-header h1 {
+        font-size: 17px;
+    }
+
+    .login-card {
+        padding: 25px;
+    }
+}
+
+
+@media (max-width: 450px) {
+
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .stat-card {
+        padding: 14px;
+    }
+
+    .stat-card strong {
+        font-size: 22px;
+    }
+
+    .attendance-row {
+        grid-template-columns:
+            42px
+            1fr
+            72px
+            72px;
+
+        gap: 6px;
+
+        padding: 8px;
+    }
+
+    .attendance-btn {
+        padding: 10px 5px;
+    }
+}

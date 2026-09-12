@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#2563eb">
+
+    <title>Smart Attendance Management System</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Firebase -->
+    <script type="module" src="app.js"></script>
+
+    <!-- Excel Export -->
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+</head>
+
+<body>
+
+<!-- =========================================================
+     LOGIN SCREEN
+========================================================= -->
+
+<div id="loginScreen" class="login-screen">
+
+    <div class="login-card">
+
+        <div class="login-logo">
+            📚
+        </div>
+
+        <h1>Smart Attendance</h1>
+
+        <p class="login-subtitle">
+            Teacher Login
+        </p>
+
+        <input
+            type="email"
+            id="loginEmail"
+            placeholder="Teacher Email"
+        >
+
+        <input
+            type="password"
+            id="loginPassword"
+            placeholder="Password"
+        >
+
+        <button
+            id="loginBtn"
+            class="primary-btn full-btn">
+            🔐 Login
+        </button>
+
+        <p id="loginMessage" class="message"></p>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     MAIN APPLICATION
+========================================================= -->
+
+<div id="app" class="hidden">
+
+    <!-- HEADER -->
+
+    <header class="top-header">
+
+        <div>
+            <h1>📚 Smart Attendance</h1>
+            <span id="teacherEmail"></span>
+        </div>
+
+        <button id="logoutBtn" class="logout-btn">
+            Logout
+        </button>
+
+    </header>
+
+
+    <main class="container">
+
+
+        <!-- =================================================
+             ATTENDANCE TAKING
+        ================================================== -->
+
+        <section class="card attendance-section">
+
+            <div class="section-title">
+
+                <div>
+                    <h2>📝 Take Attendance</h2>
+                    <p>
+                        Select lecture details and mark students with one tap.
+                    </p>
+                </div>
+
+                <div id="syncStatus" class="sync-status">
+                    ● Connected
+                </div>
+
+            </div>
+
+
+            <!-- CLASS DETAILS -->
+
+            <div class="form-grid">
+
+                <div class="input-group">
+
+                    <label>Date</label>
+
+                    <input
+                        type="date"
+                        id="attendanceDate">
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>Class</label>
+
+                    <input
+                        type="text"
+                        id="className"
+                        placeholder="e.g. SY AIML">
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>Subject</label>
+
+                    <input
+                        type="text"
+                        id="subjectName"
+                        placeholder="e.g. Data Structures">
+
+                </div>
+
+            </div>
+
+
+            <!-- ATTENDANCE SUMMARY -->
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+
+                    <span>Total Students</span>
+
+                    <strong id="totalStudents">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="stat-card present-stat">
+
+                    <span>Present</span>
+
+                    <strong id="presentCount">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="stat-card absent-stat">
+
+                    <span>Absent</span>
+
+                    <strong id="absentCount">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <span>Attendance</span>
+
+                    <strong id="lecturePercentage">
+                        0%
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- SEARCH -->
+
+            <div class="attendance-toolbar">
+
+                <input
+                    type="search"
+                    id="attendanceSearch"
+                    placeholder="🔎 Search student...">
+
+                <button
+                    id="markAllPresentBtn"
+                    class="small-btn green-btn">
+
+                    ✓ Mark All Present
+
+                </button>
+
+                <button
+                    id="markAllAbsentBtn"
+                    class="small-btn red-btn">
+
+                    ✕ Mark All Absent
+
+                </button>
+
+            </div>
+
+
+            <!-- STUDENT ATTENDANCE LIST -->
+
+            <div id="attendanceList"
+                 class="attendance-list">
+
+                <div class="empty-state">
+                    Add students below to start attendance.
+                </div>
+
+            </div>
+
+
+            <div class="save-area">
+
+                <button
+                    id="saveAttendanceBtn"
+                    class="primary-btn">
+
+                    💾 Save Attendance
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             STUDENT MANAGEMENT
+        ================================================== -->
+
+        <section class="card">
+
+            <div class="section-title">
+
+                <div>
+
+                    <h2>👨‍🎓 Student Records</h2>
+
+                    <p>
+                        Add, search, edit and delete students.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- ADD STUDENT -->
+
+            <div class="add-student-box">
+
+                <input
+                    type="text"
+                    id="studentRoll"
+                    placeholder="Roll Number">
+
+                <input
+                    type="text"
+                    id="studentName"
+                    placeholder="Student Name">
+
+                <input
+                    type="text"
+                    id="studentClass"
+                    placeholder="Class">
+
+                <button
+                    id="addStudentBtn"
+                    class="primary-btn">
+
+                    + Add Student
+
+                </button>
+
+            </div>
+
+
+            <!-- STUDENT SEARCH -->
+
+            <div class="student-toolbar">
+
+                <input
+                    type="search"
+                    id="studentSearch"
+                    placeholder="🔎 Search student records...">
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Roll</th>
+                            <th>Name</th>
+                            <th>Class</th>
+                            <th>Lectures</th>
+                            <th>Present</th>
+                            <th>Percentage</th>
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="studentTableBody"></tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             DEFAULTER REPORT
+        ================================================== -->
+
+        <section class="card">
+
+            <div class="section-title">
+
+                <div>
+
+                    <h2>⚠️ Defaulter Report</h2>
+
+                    <p>
+                        Students below 75% attendance.
+                    </p>
+
+                </div>
+
+                <button
+                    id="exportDefaultersBtn"
+                    class="small-btn">
+
+                    📊 Export Defaulters
+
+                </button>
+
+            </div>
+
+
+            <div class="report-controls">
+
+                <select id="reportType">
+
+                    <option value="semester">
+                        Semester
+                    </option>
+
+                    <option value="monthly">
+                        Monthly
+                    </option>
+
+                </select>
+
+
+                <input
+                    type="month"
+                    id="reportMonth">
+
+                <button
+                    id="generateReportBtn"
+                    class="primary-btn">
+
+                    Generate Report
+
+                </button>
+
+            </div>
+
+
+            <div
+                id="defaulterList"
+                class="defaulter-list">
+
+                <div class="empty-state">
+                    No defaulters.
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             ATTENDANCE HISTORY
+        ================================================== -->
+
+        <section class="card">
+
+            <div class="section-title">
+
+                <div>
+
+                    <h2>📅 Attendance History</h2>
+
+                    <p>
+                        View and edit previously saved lectures.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="history-controls">
+
+                <input
+                    type="date"
+                    id="historyDate">
+
+                <input
+                    type="text"
+                    id="historyClass"
+                    placeholder="Class">
+
+                <input
+                    type="text"
+                    id="historySubject"
+                    placeholder="Subject">
+
+                <button
+                    id="loadHistoryBtn"
+                    class="primary-btn">
+
+                    Search
+
+                </button>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Date</th>
+                            <th>Class</th>
+                            <th>Subject</th>
+                            <th>Present</th>
+                            <th>Absent</th>
+                            <th>Teacher</th>
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="historyTableBody"></tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             AUDIT HISTORY
+        ================================================== -->
+
+        <section class="card">
+
+            <div class="section-title">
+
+                <div>
+
+                    <h2>🔍 Audit History</h2>
+
+                    <p>
+                        Track attendance changes.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="auditList"
+                class="audit-list">
+
+                <div class="empty-state">
+                    No audit records.
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             BACKUP & EXPORT
+        ================================================== -->
+
+        <section class="card">
+
+            <div class="section-title">
+
+                <div>
+
+                    <h2>💾 Backup & Export</h2>
+
+                    <p>
+                        Download your attendance records.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="backup-buttons">
+
+                <button
+                    id="exportStudentsBtn"
+                    class="primary-btn">
+
+                    📊 Export Student Excel
+
+                </button>
+
+
+                <button
+                    id="exportAttendanceBtn"
+                    class="primary-btn">
+
+                    📊 Export Attendance Excel
+
+                </button>
+
+
+                <button
+                    id="backupJsonBtn"
+                    class="secondary-btn">
+
+                    💾 Download Full Backup
+
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+            Smart Attendance Management System
+        </p>
+
+        <p>
+            Cloud synchronized • Teacher friendly • Mobile ready
+        </p>
+
+    </footer>
+
+</div>
+
+
+<!-- =========================================================
+     EDIT ATTENDANCE MODAL
+========================================================= -->
+
+<div id="editModal" class="modal hidden">
+
+    <div class="modal-card">
+
+        <button
+            id="closeModalBtn"
+            class="close-btn">
+            ×
+        </button>
+
+        <h2>✏️ Edit Attendance</h2>
+
+        <p id="editLectureInfo"></p>
+
+        <div id="editAttendanceList"></div>
+
+        <button
+            id="updateAttendanceBtn"
+            class="primary-btn full-btn">
+
+            Update Attendance
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     CONFIRM MODAL
+========================================================= -->
+
+<div id="confirmModal" class="modal hidden">
+
+    <div class="modal-card">
+
+        <h2>Confirm Action</h2>
+
+        <p id="confirmMessage"></p>
+
+        <div class="modal-buttons">
+
+            <button
+                id="cancelConfirmBtn"
+                class="secondary-btn">
+
+                Cancel
+
+            </button>
+
+            <button
+                id="confirmActionBtn"
+                class="danger-btn">
+
+                Confirm
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
